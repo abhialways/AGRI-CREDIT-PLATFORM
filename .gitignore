@@ -64,8 +64,7 @@ out/
 # Temporary files
 tmp/
 temp/
-.DS_Store
-desktop.ini
+.historical/
 
 # Backend build artifacts
 backend/target/
