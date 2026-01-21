@@ -1,219 +1,128 @@
 # Agricultural Credit & Commodity Management System
 
-A full-stack prototype for an agricultural credit and commodity management system built with Next.js (frontend) and Spring Boot (backend).
+A full-stack agricultural credit and commodity management system built with Next.js and Spring Boot, designed to facilitate agricultural lending and warehouse receipt management.
 
-## 🚀 Features
+## 🌾 Features
 
-- **Multi-role Authentication**: Farmer, Lender, and Admin roles
-- **OTP-based Security**: Two-factor authentication with OTP verification
-- **Loan Management**: Apply for, approve, and track loans
-- **Warehouse Receipt Management**: Store and manage commodity receipts
-- **Blockchain Integration**: Mock blockchain transaction hashing
-- **Responsive UI**: Modern dashboard for each user role
+- **Multi-role Authentication**: Farmer, Lender, and Admin roles with role-based access control
+- **OTP-based Login**: Secure two-factor authentication with phone OTP verification
+- **KYC Verification**: Aadhaar and PAN verification workflows
+- **Loan Management**: Complete loan application, approval, and tracking system
+- **Warehouse Receipts**: Digital warehouse receipt management for commodities
+- **Responsive UI**: Mobile-first design with agricultural-themed interface
 
 ## 🛠️ Tech Stack
 
-### Backend
-- **Framework**: Spring Boot 3.2.0
-- **Language**: Java 17
-- **Database**: PostgreSQL with JPA/Hibernate
-- **Security**: Spring Security + JWT
-- **Caching**: Redis (optional)
-
-### Frontend
-- **Framework**: Next.js 14
-- **Language**: TypeScript
-- **Styling**: Tailwind CSS
-- **Icons**: Heroicons
+- **Frontend**: Next.js 14, TypeScript, Tailwind CSS
+- **Backend**: Spring Boot, Java 17
+- **Database**: PostgreSQL (simulated with mock server in this version)
+- **Authentication**: JWT with OTP verification
+- **Styling**: Tailwind CSS with custom agricultural theme
 
 ## 📋 Prerequisites
 
-- Java 17 or higher
-- Maven 3.6.0 or higher
-- Node.js 16 or higher
+- Node.js 18+ 
+- Java 17+
 - npm or yarn
-- PostgreSQL
-- Redis (optional)
 
-## 🏗️ Setup Instructions
+## 🚀 Installation
 
-### Backend Setup
-
-1. Navigate to the backend directory:
+1. Clone the repository:
 ```bash
-cd d:\proto\agricultural-credit-system\backend
+git clone https://github.com/abhialways/AGRI-CREDIT-PLATFORM.git
+cd AGRI-CREDIT-PLATFORM
 ```
 
-2. Configure the database in `src/main/resources/application.properties`:
-```properties
-spring.datasource.url=jdbc:postgresql://localhost:5432/agricredit_db
-spring.datasource.username=postgres
-spring.datasource.password=your_password
-```
-
-3. Build the project:
+2. Navigate to the frontend directory and install dependencies:
 ```bash
-mvn clean install
-```
-
-4. Run the application:
-```bash
-mvn spring-boot:run
-```
-
-The backend will start on `http://localhost:8080`
-
-### Frontend Setup
-
-1. Navigate to the frontend directory:
-```bash
-cd d:\proto\agricultural-credit-system\frontend
-```
-
-2. Install dependencies:
-```bash
+cd frontend
 npm install
 ```
 
-3. Run the development server:
+3. Start the mock backend server:
 ```bash
+cd ..  # Navigate back to root
+node mock-server.js
+```
+
+4. In a new terminal, start the frontend development server:
+```bash
+cd frontend
 npm run dev
 ```
 
-The frontend will start on `http://localhost:3000`
+5. Open your browser and visit `http://localhost:3000`
 
-## 🔐 API Endpoints
+## 🔐 Default Credentials
 
-### Authentication
-- `POST /api/auth/login` - Login with username/password
-- `POST /api/auth/verify-otp` - Verify OTP and get JWT
-- `POST /api/auth/register` - Register a new user
+The system uses phone number-based authentication with OTP:
 
-### Loan Management
-- `POST /api/loans/apply` - Apply for a loan
-- `PUT /api/loans/{loanId}/approve` - Approve a loan
-- `PUT /api/loans/{loanId}/reject` - Reject a loan
-- `PUT /api/loans/{loanId}/disburse` - Disburse a loan
-- `GET /api/loans/farmer/{farmerId}` - Get loans by farmer
-- `GET /api/loans/lender/{lenderId}` - Get loans by lender
-- `GET /api/loans/{loanId}` - Get loan by ID
-- `GET /api/loans` - Get all loans
+- **Farmer**: Use any valid phone number, OTP is any 6-digit number
+- **Lender**: Use any valid phone number, OTP is any 6-digit number  
+- **Admin**: Use any valid phone number, OTP is any 6-digit number
 
-### Warehouse Receipt Management
-- `POST /api/warehouse/receipts` - Create a warehouse receipt
-- `PUT /api/warehouse/receipts/{receiptId}/status` - Update receipt status
-- `GET /api/warehouse/receipts/farmer/{farmerId}` - Get receipts by farmer
-- `GET /api/warehouse/receipts/active` - Get active receipts
-- `GET /api/warehouse/receipts/status/{status}` - Get receipts by status
-- `GET /api/warehouse/receipts/{receiptId}` - Get receipt by ID
-- `GET /api/warehouse/receipts` - Get all receipts
-
-## 👥 User Roles
-
-### Farmer
-- Apply for loans
-- View loan status
-- Store commodities in warehouses
-- View warehouse receipts
-
-### Lender
-- Approve/reject loan applications
-- Disburse loans
-- Monitor loan portfolio
-
-### Admin
-- View all system data
-- Manage users
-- Monitor overall system activity
-
-## 🧪 Testing the Application
-
-1. Start both backend and frontend servers
-2. Open your browser and navigate to `http://localhost:3000`
-3. Register a new user or use existing test credentials
-4. Log in with your credentials
-5. Enter the OTP sent to the user (in this prototype, OTP is displayed in the backend logs)
-6. Explore the role-specific dashboards
-
-## 🧱 Architecture
-
-The application follows a microservices-friendly architecture with:
-
-- **Modular Backend**: Separate modules for authentication, loan management, and warehouse management
-- **JWT-based Security**: Stateless authentication with refresh tokens
-- **Database Layer**: JPA/Hibernate for ORM with PostgreSQL
-- **RESTful APIs**: Clean, documented API endpoints
-- **Modern Frontend**: Component-based architecture with state management
-
-## 📦 Project Structure
+## 🏗️ Project Structure
 
 ```
-agricultural-credit-system/
-├── backend/
+AGRI-CREDIT-PLATFORM/
+├── backend/                 # Spring Boot backend (Java)
 │   ├── src/main/java/com/agricredit/
-│   │   ├── auth/           # Authentication modules
-│   │   ├── config/         # Configuration classes
-│   │   ├── controller/     # REST controllers
-│   │   ├── dto/           # Data transfer objects
-│   │   ├── entity/        # JPA entities
-│   │   ├── repository/    # JPA repositories
-│   │   ├── security/      # Security configuration
-│   │   ├── service/       # Business logic
-│   │   └── util/          # Utility classes
-│   └── pom.xml
-└── frontend/
-    ├── app/               # Next.js app router pages
-    ├── components/        # Reusable components
-    ├── styles/            # Global styles
-    ├── utils/            # Utility functions
-    ├── package.json
-    └── README.md
+│   │   ├── controller/      # REST controllers
+│   │   ├── entity/          # JPA entities
+│   │   ├── repository/      # Data repositories
+│   │   ├── service/         # Business logic
+│   │   └── dto/             # Data transfer objects
+│   └── pom.xml              # Maven dependencies
+├── frontend/                # Next.js frontend
+│   ├── app/                 # Next.js app router pages
+│   │   ├── dashboard/       # Role-specific dashboards
+│   │   │   ├── farmer/      # Farmer dashboard
+│   │   │   ├── lender/      # Lender dashboard  
+│   │   │   └── admin/       # Admin dashboard
+│   │   ├── register/        # Registration page
+│   │   └── layout.tsx       # Root layout
+│   ├── components/          # React components
+│   ├── styles/              # Global styles
+│   ├── utils/               # Utility functions
+│   ├── package.json         # Frontend dependencies
+│   └── next.config.js       # Next.js configuration
+├── mock-server.js           # Mock backend server for demonstration
+└── README.md
 ```
 
-## 🧑‍💻 Development
+## 🎨 Agricultural Theme
 
-### Running Tests
-Backend tests can be run with:
-```bash
-mvn test
-```
+The UI features an agricultural-themed design with:
+- Green color palette representing growth and nature
+- Farm-friendly icons and imagery
+- Responsive layouts suitable for mobile devices commonly used by farmers
+- Intuitive navigation for users with varying technical expertise
 
-Frontend linting can be run with:
-```bash
-npm run lint
-```
+## 🧪 Testing
 
-## 🚢 Production Deployment
+The application includes mock data for testing different scenarios:
+- Loan applications with various statuses (Pending, Approved, Rejected)
+- Warehouse receipts for different commodities
+- Multi-role access with appropriate permissions
 
-For production deployment:
+## 📱 Mobile Responsiveness
 
-1. Build the frontend for production:
-```bash
-npm run build
-```
+The application is designed to work seamlessly on mobile devices, tablets, and desktops, making it accessible to farmers who primarily use smartphones.
 
-2. Package the backend:
-```bash
-mvn clean package
-```
+## 🚢 Future Enhancements
 
-3. Deploy the JAR file and serve the frontend build
+Potential enhancements for production deployment:
+- Blockchain integration for immutable transaction records
+- Real-time commodity price feeds
+- GPS-enabled warehouse locations
+- Advanced analytics dashboard
+- Integration with government agricultural databases
+- Offline capability for areas with poor connectivity
 
 ## 🤝 Contributing
 
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+Contributions are welcome! Please feel free to submit a Pull Request. For major changes, please open an issue first to discuss what you would like to change.
 
 ## 📄 License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
-
-## 💡 Notes
-
-- This is a prototype application for demonstration purposes
-- In a production environment, additional security measures would be implemented
-- Database migrations and proper error handling would be enhanced
-- Real blockchain integration would replace the mock implementation
